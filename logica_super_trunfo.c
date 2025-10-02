@@ -2,12 +2,13 @@
 
 int main (){
 	//Nomeando variaveis das cartas
-	char estado1[2],estado2[2];
+	char estado1,estado2;
 	char cidade1[25],cidade2[25];
 	int codigo1,codigo2,turismo1,turismo2;
 	unsigned long int populacao1,populacao2;
 	float area1,area2,pib1,pib2,densidade1,densidade2,pib_percapita1,pib_percapita2;
-	
+	short int resultado1 = 0, resultado2 = 0; //Variáveis para o resultado final
+
 	//Titulo do desafio proposto
 	printf("***Desafio Supertrunfo***\n");
 	// Carta 1
@@ -16,10 +17,22 @@ int main (){
 	//Formando referências da Carta 1
 	//Estado da carta 1
 	printf("Digite a letra do estado entre A e H: ");
-	scanf("%s",estado1);
+	scanf(" %c",&estado1);
+	if (estado1 >= 'a' && estado1 <= 'h') {
+		estado1 = estado1 + ('A' - 'a'); // Converte para maiúscula
+	} else {
+		if (estado1 < 'A' && estado1 > 'H') {
+			printf("Estado inválido! O programa será encerrado.\n"); // Mensagem de erro
+			return 1; // Encerra o programa com código de erro
+		}
+	}
 	//Código da carta 1
 	printf("Digite o valor do código entre 01 e 04: ");
 	scanf("%d",&codigo1);
+	if (codigo1 < 1  || codigo1 > 4) {
+		printf("Código inválido! O programa será encerrado.\n"); // Mensagem de erro
+		return 1; // Encerra o programa com código de erro
+	} 
 	//Nome da cidade da carta 1
 	printf("Digite o nome da cidade: ");
 	scanf(" %[^\n]",cidade1);
@@ -45,10 +58,22 @@ int main (){
 	//Formando referências da Carta 2
 	//Estado da carta 2
 	printf("Digite a letra do estado entre A e H: ");
-	scanf("%s",estado2);
+	scanf(" %c",&estado2);
+	if (estado2 >= 'a' && estado2 <= 'h') {
+		estado2 = estado2 + ('A' - 'a'); // Converte para maiúscula
+	} else {
+		if (estado2 < 'A' && estado2 > 'H') {
+			printf("Estado inválido! O programa será encerrado.\n"); // Mensagem de erro
+			return 1; // Encerra o programa com código de erro
+		}
+	}
 	//Código da carta 2
 	printf("Digite o valor do código entre 01 e 04: ");
 	scanf("%d",&codigo2);
+	if (codigo2 < 1  || codigo2 > 4) {
+		printf("Código inválido! O programa será encerrado.\n"); // Mensagem de erro
+		return 1; // Encerra o programa com código de erro
+	}
 	//Nome da cidade da carta 2
 	printf("Digite o nome da cidade: ");
 	scanf(" %[^\n]",cidade2);
@@ -83,8 +108,8 @@ int main (){
 	printf("\n");
 
 	printf("Carta 1:\n");
-	printf("Estado: %s\n",estado1);
-	printf("Código: %s%.2d\n",estado1,codigo1);
+	printf("Estado: %c\n",estado1);
+	printf("Código: %c%.2d\n",estado1,codigo1);
 	printf("Nome da cidade: %s\n",cidade1);
 	printf("População: %lu\n",populacao1);
 	printf("Área: %.2f km²\n",area1);
@@ -99,8 +124,8 @@ int main (){
 	printf("\n");
 
 	printf("Carta 2:\n");
-	printf("Estado: %s\n",estado2);
-	printf("Código: %s%.2d\n",estado2,codigo2);
+	printf("Estado: %c\n",estado2);
+	printf("Código: %c%.2d\n",estado2,codigo2);
 	printf("Nome da cidade: %s\n",cidade2);
 	printf("População: %lu\n",populacao2);
 	printf("Área: %.2f km²\n",area2);
@@ -116,14 +141,101 @@ int main (){
 	//Comparação entre as cartas
 	printf("\n");
 	printf("Comparação entre as cartas:\n");
-	printf("Legendas: 1 = Informação VERDADEIRA; 0 = Informação INCORRETA\n");
-	printf("População: Carta 1 venceu (%d)\n", (populacao1 > populacao2)); // 1 se verdade, 0 se falso
-	printf("Área: Carta 1 venceu (%d)\n", (area1 > area2)); // 1 se verdade, 0 se falso
-	printf("PIB: Carta 1 venceu (%d)\n", (pib1 > pib2)); // 1 se verdade, 0 se falso
-	printf("Número de pontos turísticos: Carta 1 venceu (%d)\n", (turismo1 > turismo2)); // 1 se verdade, 0 se falso
-	printf("Densidade demográfica: Carta 1 venceu (%d)\n", (inverso_densidade1 > inverso_densidade2)); // 1 se verdade, 0 se falso
-	printf("PIB per capita: Carta 1 venceu (%d)\n", (pib_percapita1 > pib_percapita2)); // 1 se verdade, 0 se falso
-	printf("Superpoder: Carta 1 venceu (%d)\n", (superpoder1 > superpoder2)); // 1 se verdade, 0 se falso
+	//População
+	if (populacao1 > populacao2) {
+		resultado1++;
+		printf("População: Carta 1 venceu!\n");
+	} else {
+		if (populacao1 < populacao2) {
+			resultado2++;
+			printf("População: Carta 2 venceu!\n");
+		} else {
+			printf("População: Empate!\n");
+		}
+	}
+	//Área
+	if (area1 > area2) {
+		resultado1++;
+		printf("Área: Carta 1 venceu!\n");
+	} else {
+		if (area1 < area2) {
+			resultado2++;
+			printf("Área: Carta 2 venceu!\n");
+		} else {
+			printf("Área: Empate!\n");
+		}
+	}
+	//PIB
+	if (pib1 > pib2) {
+		resultado1++;
+		printf("PIB: Carta 1 venceu!\n");
+	} else {
+		if (pib1 < pib2) {
+			resultado2++;
+			printf("PIB: Carta 2 venceu!\n");
+		} else {
+			printf("PIB: Empate!\n");
+		}
+	}
+	//Número de pontos turísticos
+	if (turismo1 > turismo2) {
+		resultado1++;
+		printf("Número de pontos turísticos: Carta 1 venceu!\n");
+	} else {
+		if (turismo1 < turismo2) {
+			resultado2++;
+			printf("Número de pontos turísticos: Carta 2 venceu!\n");
+		} else {
+			printf("Número de pontos turísticos: Empate!\n");
+		}
+	}
+	//Densidade demográfica (inverso)
+	if (inverso_densidade1 > inverso_densidade2) {
+		resultado1++;
+		printf("Densidade demográfica: Carta 1 venceu!\n");
+	} else {
+		if (inverso_densidade1 < inverso_densidade2) {
+			resultado2++;
+			printf("Densidade demográfica: Carta 2 venceu!\n");
+		} else {
+			printf("Densidade demográfica: Empate!\n");
+		}
+	}
+	//PIB per capita
+	if (pib_percapita1 > pib_percapita2) {
+		resultado1++;
+		printf("PIB per capita: Carta 1 venceu!\n");
+	} else {
+		if (pib_percapita1 < pib_percapita2) {
+			resultado2++;
+			printf("PIB per capita: Carta 2 venceu!\n");
+		} else {
+			printf("PIB per capita: Empate!\n");
+		}
+	}
+	//Superpoder
+	if (superpoder1 > superpoder2) {
+		resultado1++;
+		printf("Superpoder: Carta 1 venceu!\n");
+	} else {
+		if (superpoder1 < superpoder2) {
+			resultado2++;
+			printf("Superpoder: Carta 2 venceu!\n");
+		} else {
+			printf("Superpoder: Empate!\n");
+		}
+	}
+	printf("A carta 1 venceu %d categorias.\n",resultado1);
+	printf("A carta 2 venceu %d categorias.\n",resultado2);
+	if (resultado1 > resultado2) {
+		printf("A carta 1 é a grande vencedora!\n");
+	} else {
+		if (resultado1 < resultado2) {
+			printf("A carta 2 é a grande vencedora!\n");
+		} else {
+			printf("As cartas empataram!\n");
+		}
+	}
 	//Finalização da comparação entre as cartas
 	//Finalização do programa
 	return 0;
